@@ -1,0 +1,1 @@
+{"version":3,"file":"EmployeeService.d.ts","sourceRoot":"","sources":["../../src/services/EmployeeService.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,QAAQ,EAAE,WAAW,EAAE,MAAM,oBAAoB,CAAC;AAG3D,cAAM,eAAe;IACf,MAAM,CAAC,EAAE,IAAI,EAAE,KAAK,EAAE,QAAQ,EAAE,QAAQ,EAAE,EAAE,QAAQ,GAAG,OAAO,CAAC,WAAW,CAAC;IA0C3E,MAAM,IAAI,OAAO,CAAC,WAAW,EAAE,CAAC;CA6BrC;;AAED,wBAAqC"}

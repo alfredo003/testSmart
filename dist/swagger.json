@@ -1,0 +1,383 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "API SmartQuote",
+        "description": "API para gerenciamento do SmartQuote.",
+        "version": "1.0.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/auth/signup": {
+            "post": {
+                "summary": "Registrar um novo usuário",
+                "description": "Cria um novo usuário no sistema com base nas informações fornecidas.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Dados do usuário para registro",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string",
+                                    "example": "Alfredo Manuel"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "alfredochivela@rcsangola.co.ao"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "example": "password123"
+                                }
+                            },
+                            "required": ["username", "email", "password"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Usuário cadastrado com sucesso."
+                                },
+                                "userId": {
+                                    "type": "string",
+                                    "example": "12345"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro na validação dos dados",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "errors": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/signin": {
+            "post": {
+                "summary": "Autenticar um usuário",
+                "description": "Realiza o login de um usuário e retorna um token de autenticação.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Credenciais do usuário para login",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "alfredochivela@rcsangola.co.ao"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "example": "password123"
+                                }
+                            },
+                            "required": ["email", "password"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login bem-sucedido",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "token": {
+                                    "type": "string",
+                                    "example": "jwt.token.here"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro na validação dos dados",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "errors": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": {
+                                    "type": "string",
+                                    "example": "Credenciais inválidas"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/": {
+            "get": {
+                "summary": "Listar todos os funcionários",
+                "description": "Retorna uma lista de todos os funcionários cadastrados, incluindo informações do usuário associado. Requer autenticação.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Token de autenticação JWT",
+                        "required": true,
+                        "type": "string",
+                        "example": "Bearer jwt.token.here"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de funcionários retornada com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Lista de funcionários."
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "12345"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Alfredo Manuel"
+                                            },
+                                            "position": {
+                                                "type": "string",
+                                                "example": "Developer"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-08-07T11:46:00Z"
+                                            },
+                                            "user": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "67890"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "format": "email",
+                                                        "example": "alfredochivela@rcsangola.co.ao"
+                                                    },
+                                                    "display_name": {
+                                                        "type": "string",
+                                                        "example": "Alfredo Manuel"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": {
+                                    "type": "string",
+                                    "example": "Token inválido ou ausente"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": {
+                                    "type": "string",
+                                    "example": "Failed to list employees: [mensagem de erro]"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/create": {
+            "post": {
+                "summary": "Criar um novo funcionário",
+                "description": "Cria um novo funcionário e um usuário associado no sistema. O usuário é criado automaticamente com as credenciais fornecidas. Requer autenticação.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Token de autenticação JWT",
+                        "required": true,
+                        "type": "string",
+                        "example": "Bearer jwt.token.here"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Dados do funcionário e usuário para criação",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "Alfredo Manuel"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "alfredochivela@rcs.co.ao"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "example": "password123"
+                                },
+                                "position": {
+                                    "type": "string",
+                                    "example": "Developer"
+                                }
+                            },
+                            "required": ["name", "email", "password", "position"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Funcionário e usuário criados com sucesso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Funcionário cadastrado com sucesso."
+                                },
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "12345"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Alfredo Manuel"
+                                        },
+                                        "position": {
+                                            "type": "string",
+                                            "example": "Developer"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-08-07T11:46:00Z"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "example": "67890"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "alfredochivela@rcsangola.co.ao"
+                                                },
+                                                "display_name": {
+                                                    "type": "string",
+                                                    "example": "Alfredo Manuel"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro na validação dos dados ou falha na criação",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "errors": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": {
+                                    "type": "string",
+                                    "example": "Token inválido ou ausente"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

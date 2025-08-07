@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
-    "start":"node dist/server.js",
+    "start": "node dist/server.js",
     "build": "tsc"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "mime-db": "^1.54.0",
     "swagger-ui-express": "^5.0.1",
     "vercel": "^44.7.3",
     "zod": "^4.0.14"
